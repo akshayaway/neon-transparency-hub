@@ -6,6 +6,9 @@ import AnimatedCounter from '@/components/AnimatedCounter';
 import ParticleBackground from '@/components/ParticleBackground';
 import FeatureCard from '@/components/FeatureCard';
 import PayoutCard from '@/components/PayoutCard';
+import FloatingS from '@/components/FloatingS';
+import StarField from '@/components/StarField';
+import CursorTrail from '@/components/CursorTrail';
 import { useNavigate } from 'react-router-dom';
 
 const Index = () => {
@@ -13,16 +16,33 @@ const Index = () => {
 
   return (
     <div className="relative min-h-screen">
+      {/* Background layers */}
+      <StarField />
       <ParticleBackground />
+      <CursorTrail />
       
       {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col items-center justify-center px-4 overflow-hidden">
+        {/* Gradient background layer */}
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
         
+        {/* Radial gradient haze (farthest layer) */}
+        <div 
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: 'radial-gradient(circle at 50% 40%, rgba(155,77,255,0.15), transparent 60%)',
+          }}
+        />
+        
+        {/* Floating S behind text */}
+        <div className="absolute inset-0 z-0">
+          <FloatingS />
+        </div>
+        
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 1, delay: 0.2 }}
           className="relative z-10 text-center mb-8"
         >
           <Hero3DLogo />
