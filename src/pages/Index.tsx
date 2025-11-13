@@ -52,32 +52,32 @@ const Index = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="relative z-10 text-center max-w-4xl mx-auto"
+          className="relative z-10 text-center max-w-4xl mx-auto px-4"
         >
-          <h1 className="text-5xl md:text-7xl font-heading uppercase mb-6 text-glow">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading uppercase mb-4 sm:mb-6 text-glow leading-tight">
             Transparency. Trust. Traders First.
           </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-4">
+          <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-3 sm:mb-4">
             Where prop trading meets real proof.
           </p>
-          <p className="text-lg text-muted-foreground/80 max-w-2xl mx-auto mb-12">
+          <p className="text-base sm:text-lg text-muted-foreground/80 max-w-2xl mx-auto mb-8 sm:mb-12 px-4">
             SuperFunded is redefining trust in the prop firm industry — with real payouts, 
             verified traders, and full transparency.
           </p>
 
-          <div className="flex flex-wrap gap-4 justify-center mb-16">
+          <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center mb-12 sm:mb-16 px-4">
             <Button 
               size="lg" 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground neon-glow group text-lg px-8 py-6"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground neon-glow group text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto"
               onClick={() => navigate('/payouts')}
             >
-              <DollarSign className="mr-2 h-5 w-5 group-hover:animate-pulse" />
+              <DollarSign className="mr-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:animate-pulse" />
               View Real Payouts
             </Button>
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-primary/50 hover:bg-primary/10 text-lg px-8 py-6"
+              className="border-primary/50 hover:bg-primary/10 text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto"
               onClick={() => navigate('/submit')}
             >
               Submit Your Proof
@@ -85,18 +85,24 @@ const Index = () => {
           </div>
 
           {/* Stats Counters */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <div className="space-y-2">
-              <AnimatedCounter end={12000000} prefix="$" suffix="+" />
-              <p className="text-sm text-muted-foreground uppercase tracking-wide">Paid to Traders</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mb-12 px-4">
+            <div className="space-y-2 flex flex-col items-center">
+              <div className="w-full flex justify-center overflow-hidden">
+                <AnimatedCounter end={12000000} prefix="$" suffix="+" />
+              </div>
+              <p className="text-xs sm:text-sm text-muted-foreground uppercase tracking-wide text-center">Paid to Traders</p>
             </div>
-            <div className="space-y-2">
-              <AnimatedCounter end={3000} suffix="+" />
-              <p className="text-sm text-muted-foreground uppercase tracking-wide">Funded Accounts</p>
+            <div className="space-y-2 flex flex-col items-center">
+              <div className="w-full flex justify-center overflow-hidden">
+                <AnimatedCounter end={3000} suffix="+" />
+              </div>
+              <p className="text-xs sm:text-sm text-muted-foreground uppercase tracking-wide text-center">Funded Accounts</p>
             </div>
-            <div className="space-y-2">
-              <AnimatedCounter end={100} suffix="%" />
-              <p className="text-sm text-muted-foreground uppercase tracking-wide">Transparent Payouts</p>
+            <div className="space-y-2 flex flex-col items-center">
+              <div className="w-full flex justify-center overflow-hidden">
+                <AnimatedCounter end={100} suffix="%" />
+              </div>
+              <p className="text-xs sm:text-sm text-muted-foreground uppercase tracking-wide text-center">Transparent Payouts</p>
             </div>
           </div>
         </motion.div>
@@ -112,7 +118,7 @@ const Index = () => {
       </section>
 
       {/* Why Transparency Matters */}
-      <section className="relative py-24 px-4">
+      <section className="relative py-12 sm:py-16 md:py-24 px-4">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0 }}
@@ -120,15 +126,15 @@ const Index = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-heading uppercase mb-4 text-glow">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading uppercase mb-4 text-glow">
               Why Transparency Matters
             </h2>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-lg sm:text-xl text-muted-foreground px-4">
               Trust isn't given. It's earned. Here's how we do it.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             <FeatureCard
               icon={Coins}
               title="Weekly Payouts"
@@ -152,7 +158,7 @@ const Index = () => {
       </section>
 
       {/* Live Payout Feed Preview */}
-      <section className="relative py-24 px-4 bg-gradient-to-b from-transparent via-primary/5 to-transparent">
+      <section className="relative py-12 sm:py-16 md:py-24 px-4 bg-gradient-to-b from-transparent via-primary/5 to-transparent">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0 }}
@@ -160,15 +166,15 @@ const Index = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-heading uppercase mb-4 text-glow">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading uppercase mb-4 text-glow">
               Live Payout Feed
             </h2>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-lg sm:text-xl text-muted-foreground px-4">
               Real traders. Real money. Real proof.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">
             <PayoutCard
               traderName="@trader_mike"
               amount={5420}
@@ -207,7 +213,7 @@ const Index = () => {
       </section>
 
       {/* Transparency Dashboard Preview */}
-      <section className="relative py-24 px-4">
+      <section className="relative py-12 sm:py-16 md:py-24 px-4">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0 }}
@@ -215,24 +221,26 @@ const Index = () => {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-heading uppercase mb-4 text-glow">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading uppercase mb-4 text-glow">
               Real-Time Transparency
             </h2>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-lg sm:text-xl text-muted-foreground px-4">
               Live stats. No smoke. No mirrors.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="glass-morph p-8 text-center border-2 border-primary/20 rounded-xl"
+              className="glass-morph p-6 sm:p-8 text-center border-2 border-primary/20 rounded-xl"
             >
-              <Users className="w-12 h-12 text-primary mx-auto mb-4" />
-              <AnimatedCounter end={847} />
-              <p className="text-sm text-muted-foreground mt-2 uppercase">Active Traders</p>
+              <Users className="w-10 h-10 sm:w-12 sm:h-12 text-primary mx-auto mb-4" />
+              <div className="overflow-hidden flex justify-center">
+                <AnimatedCounter end={847} />
+              </div>
+              <p className="text-xs sm:text-sm text-muted-foreground mt-2 uppercase">Active Traders</p>
             </motion.div>
 
             <motion.div
@@ -240,11 +248,13 @@ const Index = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="glass-morph p-8 text-center border-2 border-primary/20 rounded-xl"
+              className="glass-morph p-6 sm:p-8 text-center border-2 border-primary/20 rounded-xl"
             >
-              <DollarSign className="w-12 h-12 text-primary mx-auto mb-4" />
-              <AnimatedCounter end={2100000} prefix="$" />
-              <p className="text-sm text-muted-foreground mt-2 uppercase">This Month</p>
+              <DollarSign className="w-10 h-10 sm:w-12 sm:h-12 text-primary mx-auto mb-4" />
+              <div className="overflow-hidden flex justify-center">
+                <AnimatedCounter end={2100000} prefix="$" />
+              </div>
+              <p className="text-xs sm:text-sm text-muted-foreground mt-2 uppercase">This Month</p>
             </motion.div>
 
             <motion.div
@@ -252,11 +262,13 @@ const Index = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="glass-morph p-8 text-center border-2 border-primary/20 rounded-xl"
+              className="glass-morph p-6 sm:p-8 text-center border-2 border-primary/20 rounded-xl"
             >
-              <TrendingUp className="w-12 h-12 text-primary mx-auto mb-4" />
-              <AnimatedCounter end={24} suffix=" hrs" />
-              <p className="text-sm text-muted-foreground mt-2 uppercase">Avg Processing</p>
+              <TrendingUp className="w-10 h-10 sm:w-12 sm:h-12 text-primary mx-auto mb-4" />
+              <div className="overflow-hidden flex justify-center">
+                <AnimatedCounter end={24} suffix=" hrs" />
+              </div>
+              <p className="text-xs sm:text-sm text-muted-foreground mt-2 uppercase">Avg Processing</p>
             </motion.div>
 
             <motion.div
@@ -264,29 +276,31 @@ const Index = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              className="glass-morph p-8 text-center border-2 border-primary/20 rounded-xl"
+              className="glass-morph p-6 sm:p-8 text-center border-2 border-primary/20 rounded-xl"
             >
-              <Coins className="w-12 h-12 text-primary mx-auto mb-4" />
-              <AnimatedCounter end={156} />
-              <p className="text-sm text-muted-foreground mt-2 uppercase">Payouts This Week</p>
+              <Coins className="w-10 h-10 sm:w-12 sm:h-12 text-primary mx-auto mb-4" />
+              <div className="overflow-hidden flex justify-center">
+                <AnimatedCounter end={156} />
+              </div>
+              <p className="text-xs sm:text-sm text-muted-foreground mt-2 uppercase">Payouts This Week</p>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="relative py-12 px-4 border-t border-primary/20">
+      <footer className="relative py-8 sm:py-12 px-4 border-t border-primary/20">
         <div className="max-w-7xl mx-auto text-center">
-          <div className="mb-8">
-            <h3 className="text-2xl font-heading text-primary mb-2">SuperFunded</h3>
-            <p className="text-muted-foreground">Transparency Pays.</p>
+          <div className="mb-6 sm:mb-8">
+            <h3 className="text-xl sm:text-2xl font-heading text-primary mb-2">SuperFunded</h3>
+            <p className="text-sm sm:text-base text-muted-foreground">Transparency Pays.</p>
           </div>
           
-          <div className="flex justify-center gap-8 mb-8">
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">Twitter</a>
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">Telegram</a>
-            <a href="#" className="text-muted-foreground hover:text-primary transition-colors">Discord</a>
-            <a href="https://superfunded.com" className="text-muted-foreground hover:text-primary transition-colors">superfunded.com</a>
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-8 mb-6 sm:mb-8">
+            <a href="#" className="text-sm sm:text-base text-muted-foreground hover:text-primary transition-colors">Twitter</a>
+            <a href="#" className="text-sm sm:text-base text-muted-foreground hover:text-primary transition-colors">Telegram</a>
+            <a href="#" className="text-sm sm:text-base text-muted-foreground hover:text-primary transition-colors">Discord</a>
+            <a href="https://superfunded.com" className="text-sm sm:text-base text-muted-foreground hover:text-primary transition-colors">superfunded.com</a>
           </div>
 
           <p className="text-sm text-muted-foreground/60">

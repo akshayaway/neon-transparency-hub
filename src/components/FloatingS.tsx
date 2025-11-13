@@ -44,11 +44,11 @@ export default function FloatingS() {
       <motion.div
         className="relative"
         animate={{
-          y: [0, 20, 0],
+          y: [-40, -80, -40],
           rotateZ: [-2, 2, -2],
         }}
         transition={{
-          duration: 10,
+          duration: 8,
           repeat: Infinity,
           ease: "easeInOut",
         }}

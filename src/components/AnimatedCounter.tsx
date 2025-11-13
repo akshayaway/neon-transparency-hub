@@ -49,7 +49,7 @@ export default function AnimatedCounter({
       initial={{ opacity: 0, scale: 0.5 }}
       animate={isInView ? { opacity: 1, scale: 1 } : {}}
       transition={{ duration: 0.5 }}
-      className="font-mono text-4xl md:text-6xl font-bold text-glow"
+      className="font-mono text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-glow break-words"
     >
       {prefix}
       {count.toLocaleString(undefined, { 
