@@ -42,9 +42,9 @@ export default function FloatingS() {
     >
       {/* Main glowing S */}
       <motion.div
-        className="relative"
+        className="relative -translate-y-32"
         animate={{
-          y: [-40, -80, -40],
+          y: [-20, -40, -20],
           rotateZ: [-2, 2, -2],
         }}
         transition={{
