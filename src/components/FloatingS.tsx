@@ -31,7 +31,7 @@ export default function FloatingS() {
 
   return (
     <motion.div
-      className="absolute inset-0 flex items-center justify-center pointer-events-none"
+      className="absolute inset-0 flex items-start justify-center pointer-events-none pt-8 md:pt-12"
       style={{
         x,
         y,
@@ -39,12 +39,15 @@ export default function FloatingS() {
         rotateX,
         perspective: 1200,
       }}
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1.2, ease: "easeOut" }}
     >
       {/* Main glowing S */}
       <motion.div
-        className="relative -translate-y-32"
+        className="relative"
         animate={{
-          y: [-20, -40, -20],
+          y: [-10, -20, -10],
           rotateZ: [-2, 2, -2],
         }}
         transition={{
@@ -54,7 +57,7 @@ export default function FloatingS() {
         }}
       >
         {/* Glow layers */}
-        <div className="absolute inset-0 blur-3xl opacity-50">
+        <div className="absolute inset-0 blur-2xl md:blur-3xl opacity-40 md:opacity-50">
           <div 
             className="w-full h-full rounded-full"
             style={{
@@ -64,11 +67,11 @@ export default function FloatingS() {
         </div>
         
         <motion.div
-          className="relative text-[40rem] font-heading font-bold leading-none select-none"
+          className="relative text-[12rem] sm:text-[18rem] md:text-[25rem] lg:text-[32rem] xl:text-[40rem] font-heading font-bold leading-none select-none"
           style={{
             color: 'transparent',
-            WebkitTextStroke: '3px rgba(155, 77, 255, 0.4)',
-            textShadow: '0 0 60px rgba(155, 77, 255, 0.8), 0 0 120px rgba(155, 77, 255, 0.5)',
+            WebkitTextStroke: '2px rgba(155, 77, 255, 0.4)',
+            textShadow: '0 0 40px rgba(155, 77, 255, 0.8), 0 0 80px rgba(155, 77, 255, 0.5)',
           }}
           animate={{
             opacity: [0.6, 1, 0.6],
@@ -89,7 +92,7 @@ export default function FloatingS() {
           transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
         >
           <div 
-            className="w-[60rem] h-[60rem] opacity-20"
+            className="w-[30rem] h-[30rem] sm:w-[40rem] sm:h-[40rem] md:w-[50rem] md:h-[50rem] lg:w-[60rem] lg:h-[60rem] opacity-20"
             style={{
               background: 'conic-gradient(from 0deg, transparent 0%, rgba(155,77,255,0.3) 10%, transparent 20%, transparent 30%, rgba(181,23,255,0.3) 40%, transparent 50%, transparent 60%, rgba(155,77,255,0.3) 70%, transparent 80%)',
               filter: 'blur(40px)',
