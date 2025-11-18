@@ -40,9 +40,9 @@ const Index = () => {
         </div>
         
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
+          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
           className="relative z-10 text-center mb-8"
         >
           <Hero3DLogo />
@@ -51,60 +51,162 @@ const Index = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
           className="relative z-10 text-center max-w-4xl mx-auto px-4"
         >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading uppercase mb-4 sm:mb-6 text-glow leading-tight">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading uppercase mb-4 sm:mb-6 text-glow leading-tight"
+          >
             Transparency. Trust. Traders First.
-          </h1>
-          <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-3 sm:mb-4">
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.7, ease: "easeOut" }}
+            className="text-lg sm:text-xl md:text-2xl text-muted-foreground mb-3 sm:mb-4"
+          >
             Where prop trading meets real proof.
-          </p>
-          <p className="text-base sm:text-lg text-muted-foreground/80 max-w-2xl mx-auto mb-8 sm:mb-12 px-4">
+          </motion.p>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.9, ease: "easeOut" }}
+            className="text-base sm:text-lg text-muted-foreground/80 max-w-2xl mx-auto mb-8 sm:mb-12 px-4"
+          >
             SuperFunded is redefining trust in the prop firm industry — with real payouts, 
             verified traders, and full transparency.
-          </p>
+          </motion.p>
 
-          <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center mb-12 sm:mb-16 px-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.1, ease: "easeOut" }}
+            className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center mb-12 sm:mb-16 px-4"
+          >
             <Button 
               size="lg" 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground neon-glow group text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto"
+              className="relative bg-primary hover:bg-primary/90 text-primary-foreground group text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(155,77,255,0.6)]"
               onClick={() => navigate('/payouts')}
+              style={{
+                boxShadow: '0 0 20px rgba(155, 77, 255, 0.4)',
+              }}
             >
-              <DollarSign className="mr-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:animate-pulse" />
-              View Real Payouts
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%]"
+                animate={{
+                  backgroundPosition: ['0% 0%', '100% 0%', '0% 0%'],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "linear",
+                }}
+                style={{ opacity: 0 }}
+                whileHover={{ opacity: 0.3 }}
+              />
+              <span className="relative z-10 flex items-center">
+                <DollarSign className="mr-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:animate-pulse" />
+                View Real Payouts
+              </span>
             </Button>
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-primary/50 hover:bg-primary/10 text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto"
+              className="relative border-2 border-primary/60 hover:border-primary hover:bg-primary/10 text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto transition-all duration-300 hover:scale-105 hover:shadow-[0_0_25px_rgba(155,77,255,0.4)]"
               onClick={() => navigate('/submit')}
             >
               Submit Your Proof
             </Button>
-          </div>
+          </motion.div>
 
           {/* Stats Counters */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mb-12 px-4">
-            <div className="space-y-2 flex flex-col items-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.3, ease: "easeOut" }}
+            className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 mb-12 px-4"
+          >
+            <motion.div 
+              className="space-y-2 flex flex-col items-center"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+            >
               <div className="w-full flex justify-center overflow-hidden">
-                <AnimatedCounter end={12000000} prefix="$" suffix="+" />
+                <motion.div
+                  animate={{
+                    textShadow: [
+                      '0 0 20px rgba(155, 77, 255, 0.6)',
+                      '0 0 30px rgba(155, 77, 255, 0.8)',
+                      '0 0 20px rgba(155, 77, 255, 0.6)',
+                    ],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  <AnimatedCounter end={12000000} prefix="$" suffix="+" />
+                </motion.div>
               </div>
               <p className="text-xs sm:text-sm text-muted-foreground uppercase tracking-wide text-center">Paid to Traders</p>
-            </div>
-            <div className="space-y-2 flex flex-col items-center">
+            </motion.div>
+            <motion.div 
+              className="space-y-2 flex flex-col items-center"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+            >
               <div className="w-full flex justify-center overflow-hidden">
-                <AnimatedCounter end={3000} suffix="+" />
+                <motion.div
+                  animate={{
+                    textShadow: [
+                      '0 0 20px rgba(155, 77, 255, 0.6)',
+                      '0 0 30px rgba(155, 77, 255, 0.8)',
+                      '0 0 20px rgba(155, 77, 255, 0.6)',
+                    ],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.3,
+                  }}
+                >
+                  <AnimatedCounter end={3000} suffix="+" />
+                </motion.div>
               </div>
               <p className="text-xs sm:text-sm text-muted-foreground uppercase tracking-wide text-center">Funded Accounts</p>
-            </div>
-            <div className="space-y-2 flex flex-col items-center">
+            </motion.div>
+            <motion.div 
+              className="space-y-2 flex flex-col items-center"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+            >
               <div className="w-full flex justify-center overflow-hidden">
-                <AnimatedCounter end={100} suffix="%" />
+                <motion.div
+                  animate={{
+                    textShadow: [
+                      '0 0 20px rgba(155, 77, 255, 0.6)',
+                      '0 0 30px rgba(155, 77, 255, 0.8)',
+                      '0 0 20px rgba(155, 77, 255, 0.6)',
+                    ],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.6,
+                  }}
+                >
+                  <AnimatedCounter end={100} suffix="%" />
+                </motion.div>
               </div>
               <p className="text-xs sm:text-sm text-muted-foreground uppercase tracking-wide text-center">Transparent Payouts</p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </motion.div>
 
         <motion.div
