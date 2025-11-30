@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Search, Filter } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -6,24 +6,54 @@ import { Input } from '@/components/ui/input';
 import PayoutCard from '@/components/PayoutCard';
 import ParticleBackground from '@/components/ParticleBackground';
 import { useNavigate } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
 
-// Mock data - will be replaced with Supabase data
-const mockPayouts = [
-  { id: 1, traderName: '@trader_mike', amount: 5420, date: 'Dec 10, 2025', status: 'verified' as const },
-  { id: 2, traderName: '@forex_king', amount: 8750, date: 'Dec 9, 2025', status: 'verified' as const },
-  { id: 3, traderName: '@profit_hunter', amount: 3200, date: 'Dec 8, 2025', status: 'pending' as const },
-  { id: 4, traderName: '@crypto_wizard', amount: 12500, date: 'Dec 7, 2025', status: 'verified' as const },
-  { id: 5, traderName: '@day_trader_99', amount: 4800, date: 'Dec 6, 2025', status: 'verified' as const },
-  { id: 6, traderName: '@scalp_master', amount: 6300, date: 'Dec 5, 2025', status: 'verified' as const },
-];
+interface Payout {
+  id: string;
+  trader_name: string;
+  amount: number;
+  date: string;
+  status: string;
+  proof_url: string | null;
+}
 
 export default function Payouts() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
+  const [payouts, setPayouts] = useState<Payout[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const filteredPayouts = mockPayouts.filter(payout =>
-    payout.traderName.toLowerCase().includes(searchTerm.toLowerCase())
+  useEffect(() => {
+    fetchApprovedPayouts();
+  }, []);
+
+  const fetchApprovedPayouts = async () => {
+    setLoading(true);
+    const { data, error } = await supabase
+      .from('payouts')
+      .select('*')
+      .eq('status', 'approved')
+      .order('verified_at', { ascending: false });
+
+    if (error) {
+      toast.error('Failed to fetch payouts');
+      console.error(error);
+    } else {
+      setPayouts(data || []);
+    }
+    setLoading(false);
+  };
+
+  const filteredPayouts = payouts.filter(payout =>
+    payout.trader_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const getProofUrl = (proofUrl: string | null) => {
+    if (!proofUrl) return undefined;
+    const { data } = supabase.storage.from('proofs').getPublicUrl(proofUrl);
+    return data.publicUrl;
+  };
 
   return (
     <div className="relative min-h-screen pb-20">
@@ -79,27 +109,42 @@ export default function Payouts() {
         </motion.div>
 
         {/* Payout Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredPayouts.map((payout, index) => (
-            <PayoutCard
-              key={payout.id}
-              traderName={payout.traderName}
-              amount={payout.amount}
-              date={payout.date}
-              status={payout.status}
-              delay={index * 0.1}
-            />
-          ))}
-        </div>
+        {loading ? (
+          <div className="text-center py-20">
+            <div className="text-2xl text-primary animate-pulse">Loading payouts...</div>
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredPayouts.map((payout, index) => (
+                <PayoutCard
+                  key={payout.id}
+                  traderName={payout.trader_name}
+                  amount={payout.amount}
+                  date={new Date(payout.date).toLocaleDateString('en-US', { 
+                    month: 'short', 
+                    day: 'numeric', 
+                    year: 'numeric' 
+                  })}
+                  status="verified"
+                  proof={getProofUrl(payout.proof_url)}
+                  delay={index * 0.1}
+                />
+              ))}
+            </div>
 
-        {filteredPayouts.length === 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-20"
-          >
-            <p className="text-xl text-muted-foreground">No payouts found matching your search.</p>
-          </motion.div>
+            {filteredPayouts.length === 0 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-center py-20"
+              >
+                <p className="text-xl text-muted-foreground">
+                  {searchTerm ? 'No payouts found matching your search.' : 'No approved payouts yet.'}
+                </p>
+              </motion.div>
+            )}
+          </>
         )}
       </div>
     </div>

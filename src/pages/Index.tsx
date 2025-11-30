@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowDown, Coins, Search, MessageSquare, TrendingUp, Users, DollarSign } from 'lucide-react';
+import { ArrowDown, Coins, Search, MessageSquare, TrendingUp, Users, DollarSign, LogOut, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Hero3DLogo from '@/components/Hero3DLogo';
 import AnimatedCounter from '@/components/AnimatedCounter';
@@ -10,12 +10,75 @@ import FloatingS from '@/components/FloatingS';
 import StarField from '@/components/StarField';
 import CursorTrail from '@/components/CursorTrail';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 const Index = () => {
   const navigate = useNavigate();
+  const { user, profile, isAdmin, signOut } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/');
+  };
 
   return (
     <div className="relative min-h-screen">
+      {/* Top Navigation */}
+      <div className="absolute top-0 right-0 z-50 p-4">
+        {user ? (
+          <div className="flex items-center gap-4">
+            {isAdmin && (
+              <Button
+                onClick={() => navigate('/admin')}
+                variant="outline"
+                className="border-primary/50 hover:bg-primary/10"
+              >
+                Admin Panel
+              </Button>
+            )}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="border-primary/50 hover:bg-primary/10">
+                  <User className="w-4 h-4 mr-2" />
+                  {profile?.display_name || user.email}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="glass-morph border-primary/20">
+                <DropdownMenuItem onClick={() => navigate('/submit')}>
+                  Submit Payout
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleSignOut}>
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Sign Out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        ) : (
+          <div className="flex gap-2">
+            <Button
+              onClick={() => navigate('/login')}
+              variant="outline"
+              className="border-primary/50 hover:bg-primary/10"
+            >
+              Sign In
+            </Button>
+            <Button
+              onClick={() => navigate('/signup')}
+              className="bg-primary hover:bg-primary/90"
+            >
+              Sign Up
+            </Button>
+          </div>
+        )}
+      </div>
+
       {/* Background layers */}
       <StarField />
       <ParticleBackground />
