@@ -20,6 +20,8 @@ export default function Signup() {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showVerificationMessage, setShowVerificationMessage] = useState(false);
+  const [isResending, setIsResending] = useState(false);
+  const [resendCooldown, setResendCooldown] = useState(0);
 
   useEffect(() => {
     if (user && !loading && !showVerificationMessage) {
@@ -45,11 +47,43 @@ export default function Signup() {
     const { error } = await signUp(email, password, displayName);
 
     if (error) {
-      toast.error(error.message || 'Failed to sign up');
+      console.error('Signup error:', error);
+      toast.error(error.message || 'Failed to sign up. Please try again.');
       setIsLoading(false);
     } else {
       setShowVerificationMessage(true);
-      toast.success('Account created! Check your email for verification.');
+      toast.success('Account created successfully!');
+    }
+  };
+
+  const handleResendVerification = async () => {
+    if (resendCooldown > 0 || isResending) return;
+
+    setIsResending(true);
+    
+    try {
+      const { error } = await signUp(email, password, displayName);
+      
+      if (error) {
+        toast.error('Failed to resend verification email');
+      } else {
+        toast.success('Verification email resent! Check your inbox.');
+        setResendCooldown(60);
+        
+        const interval = setInterval(() => {
+          setResendCooldown((prev) => {
+            if (prev <= 1) {
+              clearInterval(interval);
+              return 0;
+            }
+            return prev - 1;
+          });
+        }, 1000);
+      }
+    } catch (err) {
+      toast.error('Failed to resend verification email');
+    } finally {
+      setIsResending(false);
     }
   };
 
@@ -74,19 +108,27 @@ export default function Signup() {
         >
           <Card className="glass-morph p-8 border-2 border-primary/20 text-center">
             <CheckCircle className="w-20 h-20 text-green-400 mx-auto mb-6 animate-pulse" />
-            <h2 className="text-3xl font-heading uppercase text-glow mb-4">Check Your Email</h2>
+            <h2 className="text-3xl font-heading uppercase text-glow mb-4">Account Created!</h2>
             <p className="text-muted-foreground mb-6">
-              We've sent a verification link to <span className="text-primary">{email}</span>.
-              Click the link to verify your account and start submitting payout proofs.
+              Your account has been created successfully. You can now sign in and start submitting payout proofs.
             </p>
             <div className="bg-primary/10 border border-primary/20 rounded-lg p-4 mb-6">
               <AlertCircle className="w-5 h-5 text-primary mx-auto mb-2" />
               <p className="text-sm text-muted-foreground">
-                Once verified, you can submit your payout proofs for review.
+                Email: <span className="text-primary font-medium">{email}</span>
               </p>
             </div>
-            <Button onClick={() => navigate('/login')} size="lg" className="w-full">
+            <Button onClick={() => navigate('/login')} size="lg" className="w-full mb-3">
               Go to Login
+            </Button>
+            <Button 
+              onClick={handleResendVerification} 
+              variant="outline" 
+              size="sm" 
+              className="w-full"
+              disabled={isResending || resendCooldown > 0}
+            >
+              {isResending ? 'Resending...' : resendCooldown > 0 ? `Resend in ${resendCooldown}s` : 'Resend Verification Email'}
             </Button>
           </Card>
         </motion.div>
