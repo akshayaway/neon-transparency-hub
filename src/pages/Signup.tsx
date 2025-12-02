@@ -108,14 +108,15 @@ export default function Signup() {
         >
           <Card className="glass-morph p-8 border-2 border-primary/20 text-center">
             <CheckCircle className="w-20 h-20 text-green-400 mx-auto mb-6 animate-pulse" />
-            <h2 className="text-3xl font-heading uppercase text-glow mb-4">Account Created!</h2>
+            <h2 className="text-3xl font-heading uppercase text-glow mb-4">Check Your Email</h2>
             <p className="text-muted-foreground mb-6">
-              Your account has been created successfully. You can now sign in and start submitting payout proofs.
+              We've sent a verification link to <span className="text-primary font-medium">{email}</span>.
+              Click the link in your email to verify your account before signing in.
             </p>
             <div className="bg-primary/10 border border-primary/20 rounded-lg p-4 mb-6">
               <AlertCircle className="w-5 h-5 text-primary mx-auto mb-2" />
               <p className="text-sm text-muted-foreground">
-                Email: <span className="text-primary font-medium">{email}</span>
+                Check your spam folder if you don't see the email within a few minutes.
               </p>
             </div>
             <Button onClick={() => navigate('/login')} size="lg" className="w-full mb-3">
