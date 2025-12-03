@@ -121,7 +121,7 @@ export default function Submit() {
   }
 
   return (
-    <ProtectedRoute requireVerified={true}>
+    <ProtectedRoute>
       <div className="relative min-h-screen pb-20">
         <ParticleBackground />
         
