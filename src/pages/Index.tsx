@@ -360,10 +360,10 @@ const Index = () => {
           </div>
           
           <div className="flex flex-wrap justify-center gap-4 sm:gap-8 mb-6 sm:mb-8">
-            <a href="#" className="text-sm sm:text-base text-muted-foreground hover:text-primary transition-colors">Twitter</a>
+            <a href="https://x.com/superfundedfx" target="_blank" rel="noopener noreferrer" className="text-sm sm:text-base text-muted-foreground hover:text-primary transition-colors">Twitter</a>
             <a href="#" className="text-sm sm:text-base text-muted-foreground hover:text-primary transition-colors">Telegram</a>
-            <a href="#" className="text-sm sm:text-base text-muted-foreground hover:text-primary transition-colors">Discord</a>
-            <a href="https://superfunded.com" className="text-sm sm:text-base text-muted-foreground hover:text-primary transition-colors">superfunded.com</a>
+            <a href="https://discord.com/invite/MFxMvkBdP6" target="_blank" rel="noopener noreferrer" className="text-sm sm:text-base text-muted-foreground hover:text-primary transition-colors">Discord</a>
+            <a href="https://superfunded.com" target="_blank" rel="noopener noreferrer" className="text-sm sm:text-base text-muted-foreground hover:text-primary transition-colors">superfunded.com</a>
           </div>
 
           <p className="text-sm text-muted-foreground/60">
