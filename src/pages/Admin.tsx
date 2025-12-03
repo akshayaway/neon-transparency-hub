@@ -41,7 +41,7 @@ interface Payout {
   status: string;
   created_at: string;
   user_id: string;
-  profiles: {
+  profile?: {
     email: string;
     display_name: string | null;
   };
@@ -76,21 +76,42 @@ export default function Admin() {
 
   const fetchPendingPayouts = async () => {
     setLoading(true);
-    const { data, error } = await supabase
+    
+    // Fetch payouts first
+    const { data: payoutsData, error: payoutsError } = await supabase
       .from('payouts')
-      .select(`
-        *,
-        profiles!payouts_user_id_fkey (email, display_name)
-      `)
+      .select('*')
       .eq('status', 'pending')
       .order('created_at', { ascending: false });
 
-    if (error) {
+    if (payoutsError) {
       toast.error('Failed to fetch pending payouts');
-      console.error(error);
-    } else {
-      setPendingPayouts(data as any || []);
+      console.error(payoutsError);
+      setLoading(false);
+      return;
     }
+
+    if (!payoutsData || payoutsData.length === 0) {
+      setPendingPayouts([]);
+      setLoading(false);
+      return;
+    }
+
+    // Get unique user IDs and fetch profiles separately
+    const userIds = [...new Set(payoutsData.map(p => p.user_id))];
+    const { data: profilesData } = await supabase
+      .from('profiles')
+      .select('id, email, display_name')
+      .in('id', userIds);
+
+    // Map profiles to payouts
+    const profilesMap = new Map(profilesData?.map(p => [p.id, p]) || []);
+    const payoutsWithProfiles = payoutsData.map(payout => ({
+      ...payout,
+      profile: profilesMap.get(payout.user_id)
+    }));
+
+    setPendingPayouts(payoutsWithProfiles as Payout[]);
     setLoading(false);
   };
 
@@ -303,7 +324,7 @@ export default function Admin() {
                           <span>Submitted: {new Date(payout.created_at).toLocaleDateString()}</span>
                         </div>
                         <p className="text-sm text-muted-foreground">
-                          By: {payout.profiles?.display_name || payout.profiles?.email}
+                          By: {payout.profile?.display_name || payout.profile?.email || 'Unknown'}
                         </p>
                       </div>
 
